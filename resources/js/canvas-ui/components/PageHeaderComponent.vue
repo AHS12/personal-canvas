@@ -3,7 +3,7 @@
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar d-flex px-0 py-1">
                 <router-link :to="{ name: 'posts' }" class="navbar-brand hover font-weight-bolder font-serif mr-3">
-                    Canvas
+                    <img src="/img/logo.png" width="50px" height="50px" alt="logo">
                 </router-link>
                 <div class="mr-auto border-left pl-1">
                     <router-link :to="{ name: 'tags' }" class="btn btn-link py-0 text-decoration-none">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <a v-if="!user" :href="`/${canvasPath}/login`" class="btn btn-link text-decoration-none">Sign in</a>
+                <!-- <a v-if="!user" :href="`/${canvasPath}/login`" class="btn btn-link text-decoration-none">Sign in</a> -->
             </nav>
         </div>
     </div>

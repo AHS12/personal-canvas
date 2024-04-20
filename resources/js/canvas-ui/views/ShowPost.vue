@@ -78,6 +78,17 @@
                     </div>
                 </div>
 
+                <div v-if="post.tags.length">
+                    <router-link
+                        :key="tag.id"
+                        v-for="tag in post.tags"
+                        :to="{ name: 'show-tag', params: { slug: tag.slug } }"
+                        class="badge badge-light p-2 my-1 mr-2 text-decoration-none text-uppercase"
+                    >
+                        {{ tag.name }}
+                    </router-link>
+                </div>
+
                 <img
                     v-if="post.featured_image"
                     :src="post.featured_image"
@@ -94,17 +105,6 @@
 
                 <div class="post-content position-relative align-items-center overflow-y-visible font-serif mt-4">
                     <div v-html="post.body" />
-                </div>
-
-                <div v-if="post.tags.length" class="mt-5">
-                    <router-link
-                        :key="tag.id"
-                        v-for="tag in post.tags"
-                        :to="{ name: 'show-tag', params: { slug: tag.slug } }"
-                        class="badge badge-light p-2 my-1 mr-2 text-decoration-none text-uppercase"
-                    >
-                        {{ tag.name }}
-                    </router-link>
                 </div>
 
                 <div

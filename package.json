@@ -1,10 +1,10 @@
 {
     "private": true,
     "scripts": {
-        "build": "vite build",
+        "build": "mix --production",
         "canvas.ui.dev": "mix",
         "canvas.ui.prod": "mix --production",
-        "dev": "vite"
+        "dev": "mix"
     },
     "devDependencies": {
         "axios": "^0.21.1",

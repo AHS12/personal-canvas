@@ -4,8 +4,9 @@
 
         <div v-if="isReady" class="mt-5">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-3">
-                <h1 class="font-serif">Canvas</h1>
-                <p class="lead text-secondary">A Laravel Publishing Platform</p>
+                <h1 class="font-serif">AHS12's Canvas</h1>
+                <p class="lead text-secondary">Welcome to "My Personal Canvas,"
+                    a blog where I bring to life the vivid imagery of my mind through writings!</p>
 
                 <main role="main" class="mt-5">
                     <div>
@@ -83,7 +84,7 @@ export default {
 
     metaInfo() {
         return {
-            title: 'Canvas',
+            title: "AHS12's Canvas",
         };
     },
 
