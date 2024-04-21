@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Canvas\Models\User;
 use Canvas\Events\PostViewed;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
+use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,7 +14,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class CanvasUiController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
@@ -30,7 +29,7 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request                    $request
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getPosts(Request $request): LengthAwarePaginator
@@ -39,8 +38,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $slug
      * @return \Illuminate\Http\JsonResponse
      */
     public function showPost(Request $request, $slug): JsonResponse
@@ -57,7 +56,7 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return string
      */
     public function getTags(Request $request): string
@@ -66,8 +65,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $slug
      * @return \Illuminate\Http\JsonResponse
      */
     public function showTag(Request $request, $slug): JsonResponse
@@ -78,8 +77,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $slug
      * @return \Illuminate\Http\JsonResponse
      */
     public function getPostsForTag(Request $request, $slug): JsonResponse
@@ -90,7 +89,7 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return string
      */
     public function getTopics(Request $request): string
@@ -99,8 +98,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $slug
      * @return \Illuminate\Http\JsonResponse
      */
     public function showTopic(Request $request, $slug): JsonResponse
@@ -111,8 +110,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $slug
      * @return \Illuminate\Http\JsonResponse
      */
     public function getPostsForTopic(Request $request, $slug): JsonResponse
@@ -123,8 +122,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function showUser(Request $request, $id): JsonResponse
@@ -135,8 +134,8 @@ class CanvasUiController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param  \Illuminate\Http\Request      $request
+     * @param                                $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function getPostsForUser(Request $request, $id): JsonResponse

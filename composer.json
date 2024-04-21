@@ -9,10 +9,12 @@
         "austintoddj/canvas": "^6.0",
         "laravel/framework": "^11.0",
         "laravel/telescope": "^5.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "spatie/laravel-backup": "^8.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "friendsofphp/php-cs-fixer": "^3.54",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
