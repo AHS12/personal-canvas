@@ -23,6 +23,9 @@ Route::prefix('api')->group(function () {
     Route::get('users/{id}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForUser']);
 
     Route::get('search/posts', [\App\Http\Controllers\CanvasUiController::class, 'searchPosts']);
+
+    Route::get('pinned-posts', [\App\Http\Controllers\CanvasUiController::class, 'getPinnedPosts']);
+    Route::post('posts/{slug}/pin', [\App\Http\Controllers\CanvasUiController::class, 'makePinnedPost']);
 });
 
 Route::get('/{view?}', [\App\Http\Controllers\CanvasUiController::class, 'index'])

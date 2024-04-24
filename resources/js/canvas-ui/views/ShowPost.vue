@@ -33,6 +33,13 @@
                             Edit post
                         </a>
                         <a :href="`/${CanvasUI.canvasPath}/stats/${post.id}`" class="dropdown-item"> View stats </a>
+                        <a
+                            v-if="hasAccess"
+                            @click="makePinnedPost"
+                            class="dropdown-item"
+                        >
+                            Pin This Post
+                        </a>
                     </div>
                 </div>
             </template>
@@ -215,6 +222,10 @@ export default {
                     this.$router.push({ name: 'posts' });
                 });
         },
+        makePinnedPost() {
+            return this.request()
+                .post(`/api/posts/${this.post.slug}/pin`);
+        }
     },
 };
 </script>

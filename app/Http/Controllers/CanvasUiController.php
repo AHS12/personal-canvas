@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PinnedPost;
 use Canvas\Events\PostViewed;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
@@ -175,5 +176,39 @@ class CanvasUiController extends Controller
         return response()->json($cachedData, 200);
     }
 
+    /**
+     * @param  \Illuminate\Http\Request      $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPinnedPosts(Request $request): JsonResponse
+    {
+        $pinnedPostIds = PinnedPost::all()->pluck('post_id')->toArray();
+        $key = 'pinned-posts';
+
+        $cachedData = Cache::remember($key, 36000, function () use ($pinnedPostIds) {
+            $posts = Post::query()
+                         ->whereIn('id', $pinnedPostIds)
+                         ->with('user', 'topic')
+                         ->latest()
+                         ->get();
+
+            return collect($posts)->toArray();
+        });
+
+        return response()->json($cachedData, 200);
+    }
+
+
+    public function makePinnedPost(Request $request): JsonResponse
+    {
+        if(!$request->user('canvas')) {
+            return response()->json(null, 401);
+        }
+        $post = Post::whereSlug($request->slug)->first();
+        if (!PinnedPost::where('post_id', $post->id)->exists()) {
+            PinnedPost::create(['post_id' => $post->id]);
+        }
+        return response()->json(null, 200);
+    }
 
 }
