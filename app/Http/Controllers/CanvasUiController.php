@@ -10,6 +10,7 @@ use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class CanvasUiController extends Controller
 {
@@ -144,4 +145,35 @@ class CanvasUiController extends Controller
 
         return $user ? response()->json($user->posts()->published()->with('user', 'topic')->paginate(), 200) : response()->json(null, 200);
     }
+
+    /**
+     * @param  \Illuminate\Http\Request      $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function searchPosts(Request $request): JsonResponse
+    {
+        $key = 'search-posts';
+
+        $cachedData = Cache::remember($key, 36000, function () {
+            $posts = Post::query()
+                         ->select('id', 'title', 'slug')
+                         ->latest()
+                         ->get();
+
+            $posts->map(function ($post) {
+                $post['name'] = $post->title;
+                $post['slug'] = $post->slug;
+                $post['type'] = 'Post';
+                $post['route'] = 'show-post';
+
+                return $post;
+            });
+
+            return collect($posts)->toArray();
+        });
+
+        return response()->json($cachedData, 200);
+    }
+
+
 }

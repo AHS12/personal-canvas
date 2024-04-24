@@ -8,6 +8,15 @@
   */
 
 /*!
+ * Fuse.js v3.4.6 - Lightweight fuzzy-search (http://fusejs.io)
+ * 
+ * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
+ * All Rights Reserved. Apache Software License 2.0
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+/*!
  * jQuery JavaScript Library v3.7.1
  * https://jquery.com/
  *
@@ -22,6 +31,12 @@
  * vue-infinite-loading v2.4.5
  * (c) 2016-2020 PeachScript
  * MIT License
+ */
+
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
  */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */

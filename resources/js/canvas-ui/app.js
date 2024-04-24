@@ -5,6 +5,7 @@ import VueMeta from 'vue-meta';
 import base from './mixins/base';
 import moment from 'moment';
 import routes from './routes';
+import { store } from './store';
 
 require('bootstrap');
 
@@ -40,4 +41,5 @@ router.beforeEach((to, from, next) => {
 new Vue({
     el: '#ui',
     router,
+    store,
 });

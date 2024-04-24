@@ -14,6 +14,15 @@
                     </router-link>
                 </div>
 
+                <a href="#" class="ml-auto" @click="showSearchModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" class="icon-search pr-1">
+                        <circle cx="10" cy="10" r="7" style="fill: none" />
+                        <path
+                            class="fill-light-gray"
+                            d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                        />
+                    </svg>
+                </a>
                 <slot v-if="user" name="options" />
 
                 <div v-if="user" class="dropdown ml-3">
@@ -55,14 +64,21 @@
                 <!-- <a v-if="!user" :href="`/${canvasPath}/login`" class="btn btn-link text-decoration-none">Sign in</a> -->
             </nav>
         </div>
+        <search-modal ref="searchModal" />
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import $ from 'jquery';
+import SearchModal from './SearchModal';
 
 export default {
     name: 'page-header-component',
+
+    components: {
+        SearchModal,
+    },
 
     data() {
         return {
@@ -76,6 +92,9 @@ export default {
             axios.get(`/${this.canvasPath}/logout`).then(() => {
                 window.location.href = `/${this.canvasPath}/login`;
             });
+        },
+        showSearchModal() {
+            $(this.$refs.searchModal.$el).modal('show');
         },
     },
 };

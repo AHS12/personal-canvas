@@ -21,6 +21,8 @@ Route::prefix('api')->group(function () {
 
     Route::get('users/{id}', [\App\Http\Controllers\CanvasUiController::class, 'showUser']);
     Route::get('users/{id}/posts', [\App\Http\Controllers\CanvasUiController::class, 'getPostsForUser']);
+
+    Route::get('search/posts', [\App\Http\Controllers\CanvasUiController::class, 'searchPosts']);
 });
 
 Route::get('/{view?}', [\App\Http\Controllers\CanvasUiController::class, 'index'])
