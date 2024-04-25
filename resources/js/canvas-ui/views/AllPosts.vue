@@ -15,8 +15,10 @@
                         <h4 class="my-4 border-bottom mt-5 pb-2">
                             <span class="border-bottom border-dark pb-2">Posts</span>
                         </h4>
+                        <div class="row row-cols-lg-2 row-cols-md-3 row-cols-sm-2">
 
-                        <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
+
+                        <div class="col mb-4" :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                             <router-link :to="{ name: 'show-post', params: { slug: post.slug } }"
                                 class="text-decoration-none">
                                 <div class="card mb-4 shadow">
@@ -44,6 +46,7 @@
                                 </div>
                             </router-link>
                         </div>
+                    </div>
 
                         <infinite-loading spinner="spiral" @infinite="fetchPosts">
                             <span slot="no-more" />

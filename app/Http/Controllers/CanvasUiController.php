@@ -46,11 +46,24 @@ class CanvasUiController extends Controller
      */
     public function showPost(Request $request, $slug): JsonResponse
     {
+        $key = 'post-' . $slug;
+
+        if (Cache::has($key)) {
+            $post = Cache::get($key);
+            event(new PostViewed($post));
+            return response()->json($post, 200);
+        }
+
         $post = Post::with('user', 'tags', 'topic')->firstWhere('slug', $slug);
 
         if ($post) {
+            $pinnedPost = PinnedPost::where('post_id', $post->id)->first();
+            if ($pinnedPost) {
+                $post->isPinned = true;
+            }
             event(new PostViewed($post));
 
+            Cache::put($key, $post, 36000);
             return response()->json($post, 200);
         } else {
             return response()->json(null, 404);
@@ -157,9 +170,9 @@ class CanvasUiController extends Controller
 
         $cachedData = Cache::remember($key, 36000, function () {
             $posts = Post::query()
-                         ->select('id', 'title', 'slug')
-                         ->latest()
-                         ->get();
+                ->select('id', 'title', 'slug')
+                ->latest()
+                ->get();
 
             $posts->map(function ($post) {
                 $post['name'] = $post->title;
@@ -187,10 +200,10 @@ class CanvasUiController extends Controller
 
         $cachedData = Cache::remember($key, 36000, function () use ($pinnedPostIds) {
             $posts = Post::query()
-                         ->whereIn('id', $pinnedPostIds)
-                         ->with('user', 'topic')
-                         ->latest()
-                         ->get();
+                ->whereIn('id', $pinnedPostIds)
+                ->with('user', 'topic')
+                ->latest()
+                ->get();
 
             return collect($posts)->toArray();
         });
@@ -198,16 +211,21 @@ class CanvasUiController extends Controller
         return response()->json($cachedData, 200);
     }
 
-
     public function makePinnedPost(Request $request): JsonResponse
     {
-        if(!$request->user('canvas')) {
+        if (!$request->user('canvas')) {
             return response()->json(null, 401);
         }
         $post = Post::whereSlug($request->slug)->first();
-        if (!PinnedPost::where('post_id', $post->id)->exists()) {
+        if (PinnedPost::where('post_id', $post->id)->exists()) {
+            PinnedPost::where('post_id', $post->id)->delete();
+        } else {
             PinnedPost::create(['post_id' => $post->id]);
         }
+        $key = 'post-' . $post->slug;
+        $pinnedPostKey = 'pinned-posts';
+        Cache::forget($key);
+        Cache::forget($pinnedPostKey);
         return response()->json(null, 200);
     }
 
