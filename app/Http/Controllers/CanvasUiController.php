@@ -63,7 +63,7 @@ class CanvasUiController extends Controller
             }
             event(new PostViewed($post));
 
-            Cache::put($key, $post, 36000);
+            Cache::put($key, $post, now()->addHours(12));
             return response()->json($post, 200);
         } else {
             return response()->json(null, 404);
@@ -168,7 +168,7 @@ class CanvasUiController extends Controller
     {
         $key = 'search-posts';
 
-        $cachedData = Cache::remember($key, 36000, function () {
+        $cachedData = Cache::remember($key, now()->addHours(6), function () {
             $posts = Post::query()
                 ->select('id', 'title', 'slug')
                 ->latest()
@@ -198,7 +198,7 @@ class CanvasUiController extends Controller
         $pinnedPostIds = PinnedPost::all()->pluck('post_id')->toArray();
         $key = 'pinned-posts';
 
-        $cachedData = Cache::remember($key, 36000, function () use ($pinnedPostIds) {
+        $cachedData = Cache::remember($key, now()->addHours(6), function () use ($pinnedPostIds) {
             $posts = Post::query()
                 ->whereIn('id', $pinnedPostIds)
                 ->with('user', 'topic')
